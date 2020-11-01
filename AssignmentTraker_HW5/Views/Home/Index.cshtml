@@ -1,0 +1,99 @@
+﻿@model AssignmentTraker_HW5.Models.ClsAssignment
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="text-align:center">Assignment Tracker</h1>
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <h4>Got a new Homework Assignment?</h4>
+        <br />
+        <p>
+            Use this page to enter information about your assignment. Add it and then we'll
+            keep a track of it for you. We'll let you see your assignments by priority or due date so you'll never
+            miss getting something done!<br />
+            <br />
+            Here's what the parts mean:<br />
+            <br />
+            <b>Priority </b>-- 1 is the highest priority
+            <br />
+            <br />
+            <b>Due</b> -- due date and time (use Chrome to see a nice date/time chooser!)
+            <br />
+            <br />
+            <b>Course</b> -- enter it like this: CS 460, WR 355, ... and we can keep
+            track of assignments for each department and course number
+            <br />
+            <br />
+            <b>Title</b> -- maybe "Homework #1: HTML and CSS"
+            <br />
+            <br />
+            <b>Notes</b> -- remind yourself what needs to be done or what's important
+            to complete it; or just whatever you want to say about the assignment
+        </p>
+    </div>
+    <div class="col-lg-6 col-md-12 border">
+        <form asp-action="TrackIt">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <br />
+
+                <center>
+                    <select class="form-control btn btn-outline-dark" style="width:auto;" asp-for="Priority" asp-items="@(new SelectList(new List<int>{ 1, 2, 3, 4, 5 }))">
+                        <option>Priority</option>
+                    </select>
+                </center>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DueDate" class="control-label"></label>
+                <input asp-for="DueDate" class="form-control" id="datepicker" />
+                <script>
+                    $('#datepicker').datepicker();
+                </script>
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseName" class="control-label"></label>
+                <input asp-for="CourseName" class="form-control" />
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignmentTitle" class="control-label"></label>
+                <input asp-for="AssignmentTitle" class="form-control" />
+                <span asp-validation-for="AssignmentTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input type="text" asp-for="Notes" class="form-control" style="height:100px" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <center>
+                <div class="form-group ">
+                    <input type="submit" value="Track it!" style="border-radius:12px; width: 200px" class="btn btn-secondary" />
+                </div>
+            </center>
+        </form>
+    </div>
+</div>
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+                window.location.href = "@Url.Action("TaskListing", "Home")";
+            };
+</script>
+
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

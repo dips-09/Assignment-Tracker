@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AssignmentTraker_HW5.Models.ClsAssignment>
+
+@{
+    ViewData["Title"] = "TaskListing";
+}
+
+<center>
+    <h1>Current Assignments</h1>
+</center>
+
+<br/>
+<div class="row">
+    <form asp-action="sortbypriority">
+        <button class="btn btn-outline-secondary " style="border-radius:12px; width: 200px" >Sort By Priority</button>
+    </form>
+    
+    &nbsp; &nbsp;
+    <form asp-action="sortbyduedate">
+        <button class="btn btn-outline-secondary " style="border-radius:12px; width: 200px">Sort By Due Date</button>
+    </form>
+</div>
+<br/>
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                Due
+            </th>
+            <th>
+                Course
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Notes
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignmentTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
