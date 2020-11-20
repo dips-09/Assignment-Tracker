@@ -13,10 +13,12 @@ namespace AssignmentTraker_HW5.Models
         [Required(ErrorMessage = "You need to set a priority")]
         public int Priority { get; set; }
         [Required]
+        //[DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "When is it due?")]
         public DateTime DueDate { get; set; }
         [Required]
         [Display(Name = "What course?")]
+        [RegularExpression(@"^[A-Za-z0-9 ]+$", ErrorMessage ="This field accepts only alphabets and numbers")]
         public string CourseName { get; set; }
         [Required]
         [Display(Name = "Give the assignment a title:")]

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AssignmentTraker_HW5.Models;
 using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Razor.Language;
 
 namespace AssignmentTraker_HW5.Controllers
 {
@@ -38,10 +39,16 @@ namespace AssignmentTraker_HW5.Controllers
                 return RedirectToAction("Index");
             }
 
+            ClsAssignment checkAssign = context.Assignments.FirstOrDefault(item => item.Priority == assign.Priority && item.CourseName.Equals(assign.CourseName) && item.DueDate == assign.DueDate && item.AssignmentTitle.Equals(assign.AssignmentTitle) && item.Notes.Equals(assign.Notes));
+            if(checkAssign != null)
+            {
+                ViewBag.Message = "This data already exists!";
+                return View("Index");
+            }
             context.Assignments.Add(assign);
             context.SaveChanges();
             ViewBag.Message = "Tracking Successful!";
-            return RedirectToAction("Index");
+            return View("Index");
         }
 
 
